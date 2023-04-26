@@ -1,21 +1,28 @@
 {
-	"name": "first-jaune-app",
+	"name": "backend-typeorm",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"type": "module",
 	"scripts": {
-		"start": "node --watch index.js",
-		"dev": "node --watch index.js",
+		"start": "ts-node index.ts",
+		"dev": "ts-node index.ts",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"dependencies": {
-		"cors": "^2.8.5",
+		"@types/cors": "^2.8.13",
+		"@types/express": "^4.17.17",
 		"dotenv": "^16.0.3",
-		"express": "^4.18.2",
 		"sqlite3": "^5.1.6",
 		"typeorm": "^0.3.15"
+	},
+	"devDependencies": {
+		"@types/node": "^18.16.1",
+		"nodemon": "^2.0.22",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.0.4"
 	}
 }

@@ -1,8 +1,10 @@
-const dataSource = require("../utils.js");
+import { Request, Response } from "express";
 
-const Skill = require("../entities/Skill.js");
+import dataSource from "../utils";
 
-const create = async (req, res) => {
+import { Skill } from "../entities/Skill";
+
+export const create = async (req: Request, res: Response): Promise<void> => {
 	try {
 		await dataSource.getRepository(Skill).save(req.body);
 
@@ -13,7 +15,7 @@ const create = async (req, res) => {
 	}
 };
 
-const read = async (req, res) => {
+export const read = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const skills = await dataSource.getRepository(Skill).find();
 
@@ -24,7 +26,7 @@ const read = async (req, res) => {
 	}
 };
 
-const update = async (req, res) => {
+export const update = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const id = req.params.id;
 		const update = req.body;
@@ -38,7 +40,7 @@ const update = async (req, res) => {
 	}
 };
 
-const destroy = async (req, res) => {
+export const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const id = req.params.id;
 
@@ -50,5 +52,3 @@ const destroy = async (req, res) => {
 		res.status(500).send("Error while deleting skill");
 	}
 };
-
-module.exports = { create, read, update, destroy };

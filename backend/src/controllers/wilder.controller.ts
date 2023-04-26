@@ -1,9 +1,11 @@
-const dataSource = require("../utils.js");
+import { Request, Response } from "express";
 
-const Wilder = require("../entities/Wilder.js");
-const Skill = require("../entities/Skill.js");
+import dataSource from "../utils";
 
-const create = async (req, res) => {
+import { Wilder } from "../entities/Wilder";
+import { Skill } from "../entities/Skill";
+
+export const create = async (req: Request, res: Response): Promise<void> => {
 	try {
 		await dataSource.getRepository(Wilder).save(req.body);
 
@@ -14,7 +16,7 @@ const create = async (req, res) => {
 	}
 };
 
-const read = async (req, res) => {
+export const read = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const wilders = await dataSource.getRepository(Wilder).find();
 
@@ -25,7 +27,7 @@ const read = async (req, res) => {
 	}
 };
 
-const update = async (req, res) => {
+export const update = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const id = req.params.id;
 		const updates = req.body;
@@ -39,7 +41,7 @@ const update = async (req, res) => {
 	}
 };
 
-const destroy = async (req, res) => {
+export const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const id = req.params.id;
 
@@ -52,14 +54,15 @@ const destroy = async (req, res) => {
 	}
 };
 
-const addSkill = async (req, res) => {
+export const addSkill = async (req: Request, res: Response): Promise<void> => {
 	try {
 		const wilderToUpdate = await dataSource
 			.getRepository(Wilder)
 			.findOneBy({ name: req.body.wilderName });
 
 		if (!wilderToUpdate) {
-			return res.status(404).send("Wilder not found");
+			res.status(404).send("Wilder not found");
+			return;
 		}
 
 		console.log("wilder to update :", wilderToUpdate);
@@ -86,14 +89,18 @@ const addSkill = async (req, res) => {
 	}
 };
 
-const updateSkill = async (req, res) => {
+export const updateSkill = async (
+	req: Request,
+	res: Response
+): Promise<void> => {
 	try {
 		const wilderToUpdate = await dataSource
 			.getRepository(Wilder)
 			.findOneBy({ name: req.body.wilderName });
 
 		if (!wilderToUpdate) {
-			return res.status(404).send("Wilder not found");
+			res.status(404).send("Wilder not found");
+			return;
 		}
 
 		console.log("wilder to update :", wilderToUpdate);
@@ -119,5 +126,3 @@ const updateSkill = async (req, res) => {
 		res.status(500).send("Error while updating skill from wilder");
 	}
 };
-
-module.exports = { create, read, update, destroy, addSkill, updateSkill };
