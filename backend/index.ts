@@ -1,4 +1,4 @@
-import dataSource from "./src/utils";
+import { dataSource } from "./src/utils";
 import app from "./src/app";
 
 const port: number = parseInt(process.env.APP_PORT ?? "5000", 10);
