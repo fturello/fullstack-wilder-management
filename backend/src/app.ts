@@ -1,9 +1,9 @@
-import express, { Request, Response } from "express";
+import express, { Application, Request, Response } from "express";
 import cors from "cors";
 
 import router from "./routers";
 
-const app = express();
+const app: Application = express();
 
 // use some application-level middleware
 app.use(express.json());
