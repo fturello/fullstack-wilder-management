@@ -13,13 +13,13 @@ app.use(cors());
 app.use("/api", router);
 
 // define a route handler for the default home page
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (req: Request, res: Response): void => {
 	console.log("A new request just hit the API !");
 	res.send("Hello dear API client :)");
 });
 
 // define a route handler for the default 404 page
-app.get("*", (req: Request, res: Response) => {
+app.get("*", (req: Request, res: Response): void => {
 	res.status(404).json({ message: "Not found !" });
 });
 
