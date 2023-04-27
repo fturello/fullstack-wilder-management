@@ -28,7 +28,7 @@ export const read = async (req: Request, res: Response): Promise<void> => {
 
 export const update = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = parseInt(req.params.id);
+		const id = parseInt(req.params.id, 10);
 		const update = req.body;
 
 		await dataSource.getRepository(Skill).update(id, update);
@@ -42,7 +42,7 @@ export const update = async (req: Request, res: Response): Promise<void> => {
 
 export const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = parseInt(req.params.id);
+		const id = parseInt(req.params.id, 10);
 
 		await dataSource.getRepository(Skill).delete(id);
 

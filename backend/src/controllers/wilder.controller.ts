@@ -29,7 +29,7 @@ export const read = async (req: Request, res: Response): Promise<void> => {
 
 export const readOne = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = parseInt(req.params.id);
+		const id = parseInt(req.params.id, 10);
 		const wilder = await dataSource.getRepository(Wilder).findOne({
 			where: {
 				id: id,
@@ -50,7 +50,7 @@ export const readOne = async (req: Request, res: Response): Promise<void> => {
 
 export const update = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = parseInt(req.params.id);
+		const id = parseInt(req.params.id, 10);
 		const updates = req.body;
 
 		await dataSource.getRepository(Wilder).update(id, updates);
@@ -64,7 +64,7 @@ export const update = async (req: Request, res: Response): Promise<void> => {
 
 export const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = parseInt(req.params.id);
+		const id = parseInt(req.params.id, 10);
 
 		await dataSource.getRepository(Wilder).delete(id);
 
