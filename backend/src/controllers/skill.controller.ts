@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import dataSource from "../utils";
+import { dataSource } from "../utils";
 
 import { Skill } from "../entities/Skill";
 

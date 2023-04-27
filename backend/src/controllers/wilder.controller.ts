@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import dataSource from "../utils";
+import { dataSource } from "../utils";
 
 import { Wilder } from "../entities/Wilder";
 import { Skill } from "../entities/Skill";
@@ -24,6 +24,27 @@ export const read = async (req: Request, res: Response): Promise<void> => {
 	} catch (e) {
 		console.error(e);
 		res.status(500).send("Error while fetching wilders");
+	}
+};
+
+export const readOne = async (req: Request, res: Response): Promise<void> => {
+	try {
+		const id = parseInt(req.params.id);
+		const wilder = await dataSource.getRepository(Wilder).findOne({
+			where: {
+				id: id,
+			},
+		});
+
+		if (!wilder) {
+			res.status(404).send("Wilder not found");
+			return;
+		}
+
+		res.json(wilder);
+	} catch (e) {
+		console.error(e);
+		res.status(500).send("Error while fetching wilder");
 	}
 };
 
@@ -75,12 +96,18 @@ export const addSkill = async (req: Request, res: Response): Promise<void> => {
 			})
 			.getMany();
 
+		console.log("skills to add :", skillsToAdd);
+
 		if (!skillsToAdd.length) {
 			throw new Error("Skills not found");
 		}
 
+		wilderToUpdate.skills = wilderToUpdate.skills || [];
+
 		wilderToUpdate.skills = wilderToUpdate.skills.concat(skillsToAdd);
 		await dataSource.getRepository(Wilder).save(wilderToUpdate);
+
+		console.log("wilder updated :", wilderToUpdate);
 
 		res.status(201).send("Skill added to wilder");
 	} catch (e) {

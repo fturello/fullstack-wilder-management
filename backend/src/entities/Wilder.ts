@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	ManyToMany,
+	JoinTable,
+} from "typeorm";
 
 import { Skill } from "./Skill";
 
@@ -13,6 +19,7 @@ export class Wilder {
 	@Column({ unique: true })
 	email: string;
 
-	@ManyToMany(() => Skill)
+	@ManyToMany(() => Skill, { eager: true }) // eager allows to get the skills automatically when getting a wilder
+	@JoinTable()
 	skills: Skill[];
 }
