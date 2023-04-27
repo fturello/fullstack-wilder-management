@@ -1,64 +1,8 @@
-body {
-  font-family: sans-serif;
-  color: #222;
-  margin: 0;
-}
-
-h1,
-h2,
-h3 {
-  margin: 0 0 0.35em;
-}
-
-h1 {
-  font-size: 40px;
-}
-
-h2 {
-  font-size: 28px;
-}
-
-h3 {
-  font-size: 20px;
-}
-
-h4 {
-  font-size: 15px;
-}
-
-p {
-  margin: 0 0 1.15em;
-}
-
-.container {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 24px;
-}
-
-header {
-  background-color: #f76c6c;
-  color: #fff;
-}
-
-footer {
-  border-top: 2px solid #f76c6c;
-}
-
-/* 
- * card-layout. css 
- */
-.card-row {
-  display: grid;
-  grid-template-columns: repeat(3, 32%);
-  justify-content: space-between;
-}
-
 .card {
   padding: 20px;
   border: 1px solid #c9c9c9;
   border-radius: 7px;
+  width: 25rem;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
@@ -90,9 +34,7 @@ footer {
 }
 
 .button {
-  /* Reset text link default */
   text-decoration: none;
-
   background-color: #f76c6c;
   color: #fff;
   padding: 0.5em 1em;
@@ -110,25 +52,20 @@ footer {
 }
 
 .card .skills li {
-  margin: 4px 0;
   display: flex;
   justify-content: space-around;
+  margin: 4px 0;
   border: #f76c6c 1px solid;
   border-radius: 4px;
   padding: 2px;
 }
 
 .card .skills .votes {
-  /* Center the content */
-  align-items: center;
   display: flex;
   justify-content: center;
-
-  /* Colors */
+  align-items: center;
   background-color: rgba(0, 0, 0, 0.3);
   color: #fff;
-
-  /* Rounded border */
   border-radius: 9999px;
   height: 20px;
   width: 20px;

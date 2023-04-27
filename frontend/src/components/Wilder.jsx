@@ -1,16 +1,21 @@
 import axios from "axios";
-import blank_profile from "../assets/profile.png";
+
 import Skill from "./Skill";
 
+import styles from "../styles/components/Wilder.module.css";
+
+import profile from "../assets/profile.png";
+
 const handleDelete = (id) => {
-	axios.delete("http://localhost:5000/api/wilder/" + id);
+	axios.delete(`http://localhost:5000/api/wilder/${id}`);
 };
+
 const Wilder = ({ name, skills, id }) => {
 	return (
-		<article className='card'>
-			<img src={blank_profile} alt='Jane Doe Profile' />
-			<h3>{name}</h3>
+		<article className={styles.card}>
+			<img src={profile} alt='Default profile picture' />
 			<button onClick={() => handleDelete(id)}>Delete</button>
+			<h3>{name}</h3>
 			<p>
 				Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
 				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -18,10 +23,10 @@ const Wilder = ({ name, skills, id }) => {
 				commodo consequat.
 			</p>
 			<h4>Wild Skills</h4>
-			<ul className='skills'>
-				{skills.map((skill) => (
+			<ul className={styles.skills}>
+				{/* {skills.map((skill) => (
 					<Skill name={skill.name} votes={skill.votes} key={skill.id} />
-				))}
+				))} */}
 			</ul>
 		</article>
 	);

@@ -10,7 +10,7 @@ export class Wilder {
 	@Column()
 	name: string;
 
-	@Column()
+	@Column({ unique: true })
 	email: string;
 
 	@ManyToMany(() => Skill)

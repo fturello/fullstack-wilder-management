@@ -1,9 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
 
-const AddWilderForm = () => {
+function AddWilder() {
 	const [wilderName, setWilderName] = useState("");
 	const [wilderEmail, setWilderEmail] = useState("");
+
 	return (
 		<form
 			onSubmit={(e) => {
@@ -34,6 +35,6 @@ const AddWilderForm = () => {
 			<button>Submit</button>
 		</form>
 	);
-};
+}
 
-export default AddWilderForm;
+export default AddWilder;

@@ -5,6 +5,6 @@ export class Skill {
 	@PrimaryGeneratedColumn()
 	id: number;
 
-	@Column()
+	@Column({ unique: true })
 	name: string;
 }

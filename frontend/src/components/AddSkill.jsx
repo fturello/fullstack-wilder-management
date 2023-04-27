@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
-const AddSkillToWilderForm = () => {
+function AddSkill() {
 	const [skills, setSkills] = useState([]);
 	const [wilders, setWilders] = useState([]);
 	const [selectedWilder, setSelectedWilder] = useState("");
@@ -16,7 +16,6 @@ const AddSkillToWilderForm = () => {
 
 		const fetchSkills = async () => {
 			const result = await axios.get("http://localhost:5000/api/skill");
-			console.log(result.data);
 			setSkills(result.data);
 		};
 		fetchSkills();
@@ -34,7 +33,7 @@ const AddSkillToWilderForm = () => {
 				});
 			}}
 		>
-			<h3>Add Skill To Wilder</h3>
+			<h3>Add Skill to Wilder</h3>
 			<select
 				onChange={(e) => {
 					setSelectedWilder(e.target.value);
@@ -56,8 +55,8 @@ const AddSkillToWilderForm = () => {
 						Array.from(e.target.selectedOptions).map((el) => el.value)
 					);
 				}}
-				defaultValue={["disabled"]}
-				multiple
+				defaultValue={"disabled"}
+				// multiple
 			>
 				<option value='disabled' disabled>
 					Select a skill
@@ -71,6 +70,6 @@ const AddSkillToWilderForm = () => {
 			<button>Submit</button>
 		</form>
 	);
-};
+}
 
-export default AddSkillToWilderForm;
+export default AddSkill;

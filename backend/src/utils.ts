@@ -1,13 +1,13 @@
-import { DataSource, EntitySchema } from "typeorm";
-import { Wilder } from "./entities/Wilder";
-import { Skill } from "./entities/Skill";
+import { DataSource } from "typeorm";
+import { Wilder } from "../src/entities/Wilder";
+import { Skill } from "../src/entities/Skill";
 
 // create data source for SQLite database using TypeORM
 const dataSource = new DataSource({
 	type: "sqlite",
 	database: "./wildersdb.sqlite",
 	synchronize: true,
-	entities: [Wilder, Skill] as EntitySchema[],
+	entities: [Wilder, Skill],
 });
 
 export default dataSource;
