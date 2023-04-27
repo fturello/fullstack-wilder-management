@@ -50,7 +50,7 @@ export const readOne = async (req: Request, res: Response): Promise<void> => {
 
 export const update = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = req.params.id;
+		const id = parseInt(req.params.id);
 		const updates = req.body;
 
 		await dataSource.getRepository(Wilder).update(id, updates);
@@ -64,7 +64,7 @@ export const update = async (req: Request, res: Response): Promise<void> => {
 
 export const destroy = async (req: Request, res: Response): Promise<void> => {
 	try {
-		const id = req.params.id;
+		const id = parseInt(req.params.id);
 
 		await dataSource.getRepository(Wilder).delete(id);
 
@@ -144,8 +144,12 @@ export const updateSkill = async (
 			throw new Error("Skills not found");
 		}
 
+		console.log("skills to update:", skillsToUpdate);
+
 		wilderToUpdate.skills = skillsToUpdate;
 		await dataSource.getRepository(Wilder).save(wilderToUpdate);
+
+		console.log("wilder updated :", wilderToUpdate);
 
 		res.status(200).send("Skills updated for wilder");
 	} catch (e) {
