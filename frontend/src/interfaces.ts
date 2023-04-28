@@ -21,6 +21,11 @@ export interface WilderProps {
 	skills: SkillProps[];
 }
 
+export interface WilderData {
+	name: string;
+	email: string;
+}
+
 export interface Wilder {
 	id: number;
 	name: string;
@@ -29,6 +34,11 @@ export interface Wilder {
 export interface Skill {
 	id: number;
 	name: string;
+}
+
+export interface UpdateSkill {
+	wilderName: string;
+	skillName: Array<string>;
 }
 
 export interface UpdateProp {

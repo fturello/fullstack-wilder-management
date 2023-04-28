@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { UpdateProp } from "../interfaces.ts";
+import { UpdateProp, WilderData } from "../interfaces.ts";
 import { wilderApi } from "../../services/axiosInstance.ts";
 
 import styles from "../styles/components/AddWilder.module.css";
@@ -9,22 +9,28 @@ function AddWilder({ update }: UpdateProp): JSX.Element {
 	const [wilderName, setWilderName] = useState<string>("");
 	const [wilderEmail, setWilderEmail] = useState<string>("");
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (
+		e: React.FormEvent<HTMLFormElement>
+	): Promise<void> => {
 		e.preventDefault();
 
 		await wilderApi.post("", {
 			name: wilderName,
 			email: wilderEmail,
-		} as { name: string; email: string });
+		} as WilderData);
 
 		update();
 	};
 
-	const handleWilderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleWilderNameChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	): void => {
 		setWilderName(e.target.value);
 	};
 
-	const handleWilderEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleWilderEmailChange = (
+		e: React.ChangeEvent<HTMLInputElement>
+	): void => {
 		setWilderEmail(e.target.value);
 	};
 

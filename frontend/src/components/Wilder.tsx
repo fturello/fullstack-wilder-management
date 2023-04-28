@@ -7,7 +7,7 @@ import styles from "../styles/components/Wilder.module.css";
 
 import profile from "../assets/profile.png";
 
-const handleDelete = (id: number) => {
+const handleDelete = (id: number): void => {
 	wilderApi.delete(`/${id}`);
 };
 

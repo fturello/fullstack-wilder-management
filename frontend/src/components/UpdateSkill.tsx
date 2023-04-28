@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 
-import { Wilder, Skill, UpdateProp } from "../interfaces.ts";
+import { UpdateProp, Wilder, Skill, UpdateSkill } from "../interfaces.ts";
 import { wilderApi, skillApi } from "../../services/axiosInstance.ts";
 
 import styles from "../styles/components/UpdateSkill.module.css";
@@ -29,22 +29,22 @@ function UpdateSkill({ update }: UpdateProp): JSX.Element {
 		fetchData();
 	}, []);
 
-	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
 		await wilderApi.post("/update-skill", {
 			wilderName: selectedWilder,
 			skillName: selectedSkills,
-		});
+		} as UpdateSkill);
 
 		update();
 	};
 
-	const handleSelectWilder = (e: ChangeEvent<HTMLSelectElement>) => {
+	const handleSelectWilder = (e: ChangeEvent<HTMLSelectElement>): void => {
 		setSelectedWilder(e.target.value);
 	};
 
-	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
+	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>): void => {
 		const checkboxValue = event.target.value;
 		const isChecked = event.target.checked;
 

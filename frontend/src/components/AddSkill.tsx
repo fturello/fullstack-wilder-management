@@ -29,7 +29,7 @@ function AddSkill({ update }: UpdateProp): JSX.Element {
 		fetchData();
 	}, []);
 
-	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
 		await wilderApi.post("/add-skill", {
@@ -40,11 +40,11 @@ function AddSkill({ update }: UpdateProp): JSX.Element {
 		update();
 	};
 
-	const handleSelectWilder = (e: ChangeEvent<HTMLSelectElement>) => {
+	const handleSelectWilder = (e: ChangeEvent<HTMLSelectElement>): void => {
 		setSelectedWilder(e.target.value);
 	};
 
-	const handleSelectSkill = (e: ChangeEvent<HTMLSelectElement>) => {
+	const handleSelectSkill = (e: ChangeEvent<HTMLSelectElement>): void => {
 		setSelectedSkills(
 			Array.from(e.target.selectedOptions).map((el) => el.value)
 		);
