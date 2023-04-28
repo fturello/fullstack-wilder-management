@@ -1,45 +1,38 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useState, useEffect, FormEvent, ChangeEvent } from "react";
+
+import { Wilder, Skill, UpdateProp } from "../interfaces.ts";
+import { wilderApi, skillApi } from "../../services/axiosInstance.ts";
 
 import styles from "../styles/components/UpdateSkill.module.css";
 
-interface IWilder {
-	id: number;
-	name: string;
-}
-
-interface ISkill {
-	id: number;
-	name: string;
-}
-
-interface IUpdateSkillProps {
-	update: () => void;
-}
-
-function UpdateSkill({ update }: IUpdateSkillProps) {
-	const [wilders, setWilders] = useState<IWilder[]>([]);
-	const [skills, setSkills] = useState<ISkill[]>([]);
+function UpdateSkill({ update }: UpdateProp): JSX.Element {
+	const [wilders, setWilders] = useState<Wilder[]>([]);
+	const [skills, setSkills] = useState<Skill[]>([]);
 	const [selectedWilder, setSelectedWilder] = useState("");
 	const [selectedSkills, setSelectedSkills] = useState<Array<string>>([]);
 
 	useEffect(() => {
-		const fetchWilders = async () => {
-			const result = await axios.get("http://localhost:5000/api/wilder");
-			setWilders(result.data);
-		};
-		fetchWilders();
+		const fetchData = async () => {
+			try {
+				const [wildersResult, skillsResult] = await Promise.all([
+					wilderApi.get(""),
+					skillApi.get(""),
+				]);
 
-		const fetchSkills = async () => {
-			const result = await axios.get("http://localhost:5000/api/skill");
-			setSkills(result.data);
+				setWilders(wildersResult.data);
+				setSkills(skillsResult.data);
+			} catch (e) {
+				console.error("Error fetching data :", e);
+			}
 		};
-		fetchSkills();
+
+		fetchData();
 	}, []);
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		await axios.post("http://localhost:5000/api/wilder/update-skill", {
+
+		await wilderApi.post("/update-skill", {
 			wilderName: selectedWilder,
 			skillName: selectedSkills,
 		});
@@ -47,7 +40,11 @@ function UpdateSkill({ update }: IUpdateSkillProps) {
 		update();
 	};
 
-	const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const handleSelectWilder = (e: ChangeEvent<HTMLSelectElement>) => {
+		setSelectedWilder(e.target.value);
+	};
+
+	const handleCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
 		const checkboxValue = event.target.value;
 		const isChecked = event.target.checked;
 
@@ -64,12 +61,7 @@ function UpdateSkill({ update }: IUpdateSkillProps) {
 		<div className={styles.container}>
 			<h2 className={styles["category-title"]}>Update Wilder Skill</h2>
 			<form className={styles["add-skill-form"]} onSubmit={handleSubmit}>
-				<select
-					onChange={(e) => {
-						setSelectedWilder(e.target.value);
-					}}
-					defaultValue={"disabled"}
-				>
+				<select onChange={handleSelectWilder} defaultValue={"disabled"}>
 					<option value='disabled' disabled>
 						Select a wilder
 					</option>

@@ -1,22 +1,17 @@
-import axios from "axios";
+import { wilderApi } from "../../services/axiosInstance.ts";
 
-import Skill, { ISkillProps } from "./Skill";
+import { WilderProps } from "../interfaces.ts";
+import Skill from "./Skill";
 
 import styles from "../styles/components/Wilder.module.css";
 
 import profile from "../assets/profile.png";
 
-export interface IWilderProps {
-	id: number;
-	name: string;
-	skills: ISkillProps[];
-}
-
 const handleDelete = (id: number) => {
-	axios.delete(`http://localhost:5000/api/wilder/${id}`);
+	wilderApi.delete(`/${id}`);
 };
 
-const Wilder = ({ id, name, skills }: IWilderProps) => {
+const Wilder = ({ id, name, skills }: WilderProps): JSX.Element => {
 	return (
 		<>
 			<article className={styles.card}>

@@ -1,6 +1,6 @@
 import styles from "../styles/components/Footer.module.css";
 
-function Footer() {
+function Footer(): JSX.Element {
 	return (
 		<footer className={styles.footer}>
 			<div className={styles.container}>

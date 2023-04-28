@@ -1,32 +1,19 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
+import { WilderProps, WilderFromAPI } from "../interfaces.ts";
+import { wilderApi } from "../../services/axiosInstance.ts";
 import AddWilder from "../components/AddWilder.jsx";
 import AddSkill from "../components/AddSkill.jsx";
 import UpdateSkill from "../components/UpdateSkill.jsx";
-import Wilder, { IWilderProps } from "../components/Wilder.jsx";
+import Wilder from "../components/Wilder.jsx";
 
 import styles from "../styles/pages/Home.module.css";
 
-interface ISkillFromAPI {
-	id: number;
-	name: string;
-}
-
-interface IWilderFromAPI {
-	id: number;
-	name: string;
-	email: string;
-	skills: ISkillFromAPI[];
-}
-
 function Home() {
-	const [wilders, setWilders] = useState<IWilderProps[]>([]);
+	const [wilders, setWilders] = useState<WilderProps[]>([]);
 
 	const fetchData = async () => {
-		const result = await axios.get<IWilderFromAPI[]>(
-			"http://localhost:5000/api/wilder"
-		);
+		const result = await wilderApi.get<WilderFromAPI[]>("");
 
 		setWilders(result.data);
 	};
@@ -42,7 +29,7 @@ function Home() {
 	return (
 		<main className={styles.container}>
 			<div className={styles["add-container"]}>
-				<AddWilder />
+				<AddWilder update={updateData} />
 				<AddSkill update={updateData} />
 				<UpdateSkill update={updateData} />
 			</div>

@@ -1,9 +1,6 @@
-export interface ISkillProps {
-	id: number;
-	name: string;
-}
+import { SkillProps } from "../interfaces.ts";
 
-const Skill = ({ name }: ISkillProps) => {
+const Skill = ({ name }: SkillProps): JSX.Element => {
 	return <li>{name}</li>;
 };
 

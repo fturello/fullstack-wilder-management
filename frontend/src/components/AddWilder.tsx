@@ -1,40 +1,42 @@
 import { useState } from "react";
-import axios from "axios";
+
+import { UpdateProp } from "../interfaces.ts";
+import { wilderApi } from "../../services/axiosInstance.ts";
 
 import styles from "../styles/components/AddWilder.module.css";
 
-function AddWilder() {
+function AddWilder({ update }: UpdateProp): JSX.Element {
 	const [wilderName, setWilderName] = useState("");
 	const [wilderEmail, setWilderEmail] = useState("");
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+
+		await wilderApi.post("", {
+			name: wilderName,
+			email: wilderEmail,
+		} as { name: string; email: string });
+
+		update();
+	};
+
+	const handleWilderNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setWilderName(e.target.value);
+	};
+
+	const handleWilderEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setWilderEmail(e.target.value);
+	};
 
 	return (
 		<div className={styles.container}>
 			<h2 className={styles["category-title"]}>Add Wilder</h2>
-			<form
-				className={styles["add-wilder-form"]}
-				onSubmit={(e) => {
-					e.preventDefault();
-					axios.post("http://localhost:5000/api/wilder", {
-						name: wilderName,
-						email: wilderEmail,
-					});
-				}}
-			>
+			<form className={styles["add-wilder-form"]} onSubmit={handleSubmit}>
 				<label>Name </label>
-				<input
-					value={wilderName}
-					onChange={(e) => {
-						setWilderName(e.target.value);
-					}}
-				/>
+				<input value={wilderName} onChange={handleWilderNameChange} />
 				<br />
 				<label>Email </label>
-				<input
-					value={wilderEmail}
-					onChange={(e) => {
-						setWilderEmail(e.target.value);
-					}}
-				/>
+				<input value={wilderEmail} onChange={handleWilderEmailChange} />
 				<br />
 				<button>Submit</button>
 			</form>
