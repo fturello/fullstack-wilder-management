@@ -8,7 +8,7 @@ import styles from "../styles/components/UpdateSkill.module.css";
 function UpdateSkill({ update }: UpdateProp): JSX.Element {
 	const [wilders, setWilders] = useState<Wilder[]>([]);
 	const [skills, setSkills] = useState<Skill[]>([]);
-	const [selectedWilder, setSelectedWilder] = useState("");
+	const [selectedWilder, setSelectedWilder] = useState<string>("");
 	const [selectedSkills, setSelectedSkills] = useState<Array<string>>([]);
 
 	useEffect(() => {

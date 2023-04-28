@@ -6,8 +6,8 @@ import { wilderApi } from "../../services/axiosInstance.ts";
 import styles from "../styles/components/AddWilder.module.css";
 
 function AddWilder({ update }: UpdateProp): JSX.Element {
-	const [wilderName, setWilderName] = useState("");
-	const [wilderEmail, setWilderEmail] = useState("");
+	const [wilderName, setWilderName] = useState<string>("");
+	const [wilderEmail, setWilderEmail] = useState<string>("");
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
