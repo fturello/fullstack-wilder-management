@@ -3,18 +3,17 @@ import axios from "axios";
 
 import AddWilder from "../components/AddWilder.jsx";
 import AddSkill from "../components/AddSkill.jsx";
+import UpdateSkill from "../components/UpdateSkill.jsx";
 import Wilder from "../components/Wilder.jsx";
 
 import styles from "../styles/pages/Home.module.css";
 
 function Home() {
 	const [wilders, setWilders] = useState([]);
-	console.log(wilders);
 
 	useEffect(() => {
 		const fetchData = async () => {
 			const result = await axios.get("http://localhost:5000/api/wilder");
-			console.log(result);
 			setWilders(result.data);
 		};
 		fetchData();
@@ -22,10 +21,12 @@ function Home() {
 
 	return (
 		<main className={styles.container}>
-			<AddWilder />
-			<AddSkill />
-			<Wilder />
-			<h2>Wilders</h2>
+			<div className={styles["add-container"]}>
+				<AddWilder />
+				<AddSkill />
+				<UpdateSkill />
+			</div>
+			<h2 className={styles["category-title"]}>Wilders</h2>
 			<section className={styles["card-row"]}>
 				{wilders.map((wilder) => {
 					return (
