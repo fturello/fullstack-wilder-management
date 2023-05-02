@@ -14,10 +14,10 @@ function AddWilder({ update }: UpdateProp): JSX.Element {
 	): Promise<void> => {
 		e.preventDefault();
 
-		await wilderApi.post("", {
+		await wilderApi.post<WilderData>("", {
 			name: wilderName,
 			email: wilderEmail,
-		} as WilderData);
+		});
 
 		update();
 	};

@@ -8,7 +8,9 @@ import styles from "../styles/components/UpdateSkill.module.css";
 function UpdateSkill({ update }: UpdateProp): JSX.Element {
 	const [wilders, setWilders] = useState<Wilder[]>([]);
 	const [skills, setSkills] = useState<Skill[]>([]);
-	const [selectedWilder, setSelectedWilder] = useState<string>("");
+	const [selectedWilder, setSelectedWilder] = useState<string | undefined>(
+		undefined
+	);
 	const [selectedSkills, setSelectedSkills] = useState<Array<string>>([]);
 
 	useEffect(() => {
@@ -32,10 +34,10 @@ function UpdateSkill({ update }: UpdateProp): JSX.Element {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
-		await wilderApi.post("/update-skill", {
+		await wilderApi.post<UpdateSkill>("/update-skill", {
 			wilderName: selectedWilder,
 			skillName: selectedSkills,
-		} as UpdateSkill);
+		});
 
 		update();
 	};

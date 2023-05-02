@@ -1,6 +1,6 @@
 import { useState, useEffect, FormEvent, ChangeEvent } from "react";
 
-import { Wilder, Skill, UpdateProp } from "../interfaces.ts";
+import { Wilder, Skill, UpdateProp, UpdateSkill } from "../interfaces.ts";
 import { wilderApi, skillApi } from "../../services/axiosInstance.ts";
 
 import styles from "../styles/components/AddSkill.module.css";
@@ -8,7 +8,9 @@ import styles from "../styles/components/AddSkill.module.css";
 function AddSkill({ update }: UpdateProp): JSX.Element {
 	const [wilders, setWilders] = useState<Wilder[]>([]);
 	const [skills, setSkills] = useState<Skill[]>([]);
-	const [selectedWilder, setSelectedWilder] = useState<string>("");
+	const [selectedWilder, setSelectedWilder] = useState<string | undefined>(
+		undefined
+	);
 	const [selectedSkills, setSelectedSkills] = useState<Array<string>>([]);
 
 	useEffect(() => {
@@ -32,10 +34,10 @@ function AddSkill({ update }: UpdateProp): JSX.Element {
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
 		e.preventDefault();
 
-		await wilderApi.post("/add-skill", {
+		await wilderApi.post<UpdateSkill>("/add-skill", {
 			wilderName: selectedWilder,
 			skillName: selectedSkills,
-		} as { wilderName: string; skillName: Array<string> });
+		});
 
 		update();
 	};
